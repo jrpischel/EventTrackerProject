@@ -71,6 +71,19 @@
 - Creation of canban boards
 - Use of Git Branching and Merging
 
+| HTTP Verb | URI             | Request Body | Response Body | Status |
+|-----------|-----------------|--------------|---------------|---------|
+| GET       | `/api/games`    |              | List of games | 200   |
+| GET       | `/api/games/1` |              | Single game   | 200 or 404 |
+| POST      | `/api/games`    | JSON of new dive       | JSON of created game | 201 or 400 |
+| PUT       | `/api/games/1` | JSON for updating dive | JSON of updated game | 200, 404, or 400 |
+| DELETE    | `/api/games/1` |              | | 204, 404, or 400 |
+| GET       | `/api/games/locations`    |              | List of locations | 200   |
+| GET       | `/api/games/locations/1` |              | Single location   | 200 or 404 |
+| POST      | `/api/games/locations`    | JSON of new dive       | JSON of created location | 201 or 400 |
+| PUT       | `/api/games/locations/1` | JSON for updating dive | JSON of updated location | 200, 404, or 400 |
+| DELETE    | `/api/games/locations/1` |              | | 204, 404, or 400 |
+
 
 
 
