@@ -1,5 +1,6 @@
 package com.skilldistillery.nebraskafootball.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class Game {
 	private int id;
 	
 	@Column(name = "game_date")
-	private Date gameDate;
+	private LocalDate gameDate;
 	
 	@Column(name = "day_of_week")
 	private String dayOfWeek;
@@ -74,12 +75,12 @@ public class Game {
 	}
 
 
-	public Date getGameDate() {
+	public LocalDate getGameDate() {
 		return gameDate;
 	}
 
 
-	public void setGameDate(Date gameDate) {
+	public void setGameDate(LocalDate gameDate) {
 		this.gameDate = gameDate;
 	}
 

@@ -71,6 +71,8 @@
 - Creation of canban boards
 - Use of Git Branching and Merging
 
+### Endpoints
+
 | HTTP Verb | URI             | Request Body | Response Body | Status |
 |-----------|-----------------|--------------|---------------|---------|
 | GET       | `/api/games`    |              | List of games | 200   |
@@ -84,6 +86,14 @@
 | PUT       | `/api/games/locations/1` | JSON for updating dive | JSON of updated location | 200, 404, or 400 |
 | DELETE    | `/api/games/locations/1` |              | | 204, 404, or 400 |
 
+
+#### JSON
+
+* TODO
+
+### HTML and JavaScript Front End
+
+* TODO
 
 
 
