@@ -27,7 +27,8 @@ function init() {
 			})
 		})
 	})
-
+	
+	
 
 
 }
@@ -118,6 +119,9 @@ function displayAllSeasons(seasonTable) {
 				document.getElementById('createGame').addEventListener('click', function(e) {
 					
 					e.preventDefault();
+					let dataDiv = document.getElementById('dataDiv');
+					dataDiv.style.display = 'none';
+					
 					let gameObject = {
 						gameDate: document.addGameForm.gameDate.value,
 						dayOfWeek: document.addGameForm.dayOfWeek.value,
@@ -133,7 +137,10 @@ function displayAllSeasons(seasonTable) {
 						network: document.addGameForm.network.value,
 						bowlGame: document.addGameForm.bowlGame.value,
 						location: {
-							id: document.addGameForm.location.value,
+							id: 1,
+							stadium: "Memorial Stadium",
+							city: "Lincoln",
+							state: "Nebraska"
 						},
 						season: {
 							year: document.addGameForm.season.value,
@@ -142,6 +149,22 @@ function displayAllSeasons(seasonTable) {
 					postGame(gameObject);
 				})
 			})
+			document.getElementById('locationBtn').addEventListener('click', function(e) {
+		e.preventDefault();
+		addLocationForm();
+		document.getElementById('createLocation').addEventListener('click', function(e) {
+			e.preventDefault();
+			
+			let locationObject = {
+				stadium: document.addLocationForm.stadium.value,
+				city: document.addLocationForm.city.value,
+				state: document.addLocationForm.state.value,
+			}
+			let location = document.getElementById('locationDiv');
+			location.style.display = 'none';
+			postLocation(locationObject);
+		})
+	})
 		})
 
 	}
@@ -310,6 +333,12 @@ function displayGameTable(seasonYear) {
 	addGameBtn.id = 'addGameBtn';
 	addGameBtn.textContent = 'Add A Game';
 	gameTable.appendChild(addGameBtn);
+
+	let locationBtn = document.createElement('button');
+	locationBtn.name = 'locationBtn';
+	locationBtn.id = 'locationBtn';
+	locationBtn.textContent = 'Add A Location';
+	gameTable.appendChild(locationBtn);
 
 
 	loadGamesBySeason(seasonYear);
@@ -664,7 +693,7 @@ function createGameForm() {
 	let location = document.createElement('input');
 	location.name = 'location';
 	location.type = 'hidden';
-	location.value = 1;
+	
 
 	let season = document.createElement('input');
 	season.name = 'season';
@@ -680,8 +709,6 @@ function createGameForm() {
 	createGame.class = "btn-dark";
 
 	let label = document.createElement('label');
-	
-	
 	let br = document.createElement('br');
 
 	addGameForm.appendChild(addGameFormHead);
@@ -830,7 +857,105 @@ function postGame(gameObject) {
 	xhr.send(gameObjectJson);
 }
 
+function addLocationForm() {
+	
+	let welcome = document.getElementById('welcomeDiv');
+	welcome.style.display = 'none';
+	let seasonTable = document.getElementById('seasonTableDiv');
+	seasonTable.style.display = 'none';
+	let gameTable = document.getElementById('gameTableDiv');
+	gameTable.style.display = 'none';
+	let seasonBtn = document.getElementById('season-toggle');
+	seasonBtn.style.display = 'inline-block';
+	
+	let locationForm = document.getElementById('dataDiv');
+	
 
+	let addLocationDiv = document.getElementById('locationDiv');
+	
+
+	let addLocationForm = document.createElement('form');
+	addLocationForm.name = 'addLocationForm';
+
+	let addLocationFormHead = document.createElement('H3');
+	addLocationFormHead.name = 'addLocationFormHead';
+	addLocationFormHead.textContent = 'Add A New Location';
+	
+	let stadium = document.createElement('input');
+	stadium.name = 'stadium';
+	stadium.type = 'text';
+	stadium.label = 'Stadium';
+	stadium.placeholder = 'Memorial Stadium';
+	
+	let city = document.createElement('input');
+	city.name = 'city';
+	city.type = 'text';
+	city.label = 'City';
+	city.placeholder = 'Lincoln';
+	
+	let state = document.createElement('input');
+	state.name = 'state';
+	state.type = 'text';
+	state.label = 'State';
+	state.placeholder = 'Nebraska';
+	
+	
+	let createLocation = document.createElement('button');
+	createLocation.name = 'createLocation';
+	createLocation.id = 'createLocation';
+	createLocation.textContent = 'Add Location';
+	createLocation.class = "btn-dark";
+	
+	let br = document.createElement('br');
+	let label = document.createElement('label');
+	
+	addLocationForm.appendChild(addLocationFormHead);
+	addLocationForm.appendChild(br);
+	label.textContent = 'Stadium: ';
+	addLocationForm.appendChild(label);
+	addLocationForm.appendChild(stadium);
+	br = document.createElement('br');
+	addLocationForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'City: ';
+	addLocationForm.appendChild(label);
+	addLocationForm.appendChild(city);
+	br = document.createElement('br');
+	addLocationForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'State: ';
+	addLocationForm.appendChild(label);
+	addLocationForm.appendChild(state);
+	
+	addLocationForm.appendChild(createLocation);
+
+	addLocationDiv.appendChild(addLocationForm);
+	locationForm.appendChild(addLocationDiv);
+}
+
+function postLocation(locationObject) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/games/locations');
+
+	xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				let createdLocation = JSON.parse(xhr.responseText);
+				displayAllSeasons;
+			}
+			else {
+				displayError('Failed To Add Location:	' + xhr.status);
+				console.error(xhr.status + ': ' + xhr.responseText);
+			}
+		}
+	}
+
+	let locationObjectJson = JSON.stringify(locationObject);
+	console.log(locationObjectJson);
+	xhr.send(locationObjectJson);
+}
 
 
 
