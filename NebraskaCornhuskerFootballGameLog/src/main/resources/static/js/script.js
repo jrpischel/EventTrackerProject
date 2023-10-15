@@ -16,7 +16,7 @@ function init() {
 			let seasonTable = document.getElementById('seasonTableDiv');
 			let seasonBtn = document.getElementById('season-toggle');
 			seasonTable.style.display = 'none';
-			seasonBtn.style.display = 'none';
+			seasonBtn.style.display = 'inline-block';
 			createAddSeasonForm();
 
 			document.getElementById('createSeason').addEventListener('click', function(e) {
@@ -27,6 +27,8 @@ function init() {
 			})
 		})
 	})
+
+
 
 }
 
@@ -108,6 +110,38 @@ function displayAllSeasons(seasonTable) {
 			let season = year.textContent;
 			console.log(season);
 			displayGameTable(season);
+
+			document.getElementById('addGameBtn').addEventListener('click', function(e) {
+
+				e.preventDefault();
+				createGameForm();
+				document.getElementById('createGame').addEventListener('click', function(e) {
+					
+					e.preventDefault();
+					let gameObject = {
+						gameDate: document.addGameForm.gameDate.value,
+						dayOfWeek: document.addGameForm.dayOfWeek.value,
+						homeGame: document.addGameForm.homeGame.value,
+						opponent: document.addGameForm.opponent.value,
+						oppTeamName: document.addGameForm.oppTeamName.value,
+						oppLogoUrl: document.addGameForm.oppLogoUrl.value,
+						conference: document.addGameForm.conference.value,
+						win: document.addGameForm.win.value,
+						points: document.addGameForm.points.value,
+						oppPoints: document.addGameForm.oppPoints.value,
+						televised: document.addGameForm.televised.value,
+						network: document.addGameForm.network.value,
+						bowlGame: document.addGameForm.bowlGame.value,
+						location: {
+							id: document.addGameForm.location.value,
+						},
+						season: {
+							year: document.addGameForm.season.value,
+						}
+					};
+					postGame(gameObject);
+				})
+			})
 		})
 
 	}
@@ -271,6 +305,13 @@ function displayGameTable(seasonYear) {
 	gameTable.style.display = 'block';
 	seasonBtn.style.display = 'inline-block';
 
+	let addGameBtn = document.createElement('button');
+	addGameBtn.name = 'addGameBtn';
+	addGameBtn.id = 'addGameBtn';
+	addGameBtn.textContent = 'Add A Game';
+	gameTable.appendChild(addGameBtn);
+
+
 	loadGamesBySeason(seasonYear);
 }
 
@@ -279,8 +320,10 @@ function displaySeasonTable() {
 	let gameTable = document.getElementById('gameTableDiv');
 	let welcome = document.getElementById('welcomeDiv');
 	let seasonBtn = document.getElementById('season-toggle');
+	let dataDiv = document.getElementById('dataDiv');
 
 	seasonTable.textContent = '';
+	dataDiv.textContent = '';
 
 	seasonTable.style.display = 'block';
 	gameTable.style.display = 'none';
@@ -323,9 +366,9 @@ function postSeason() {
 	let seasonObject = {
 		year: document.addSeasonForm.year.value,
 		record: document.addSeasonForm.record.value,
-		/*confChamp: document.addSeasonForm.confChamp.value,
+		confChamp: document.addSeasonForm.confChamp.value,
 		natChampAp: document.addSeasonForm.natChampAp.value,
-		natChampCoach: document.addSeasonForm.natChampCoach.value,*/
+		natChampCoach: document.addSeasonForm.natChampCoach.value,
 	};
 
 	let seasonObjectJson = JSON.stringify(seasonObject);
@@ -369,35 +412,65 @@ function createAddSeasonForm() {
 	labelRecord.textContent = 'Record'
 	labelRecord.appendChild(record);
 
-	/*let confQuestion = document.createElement('p');
+	let confQuestion = document.createElement('p');
 	confQuestion.name = 'confQuestion';
 	confQuestion.textContent = 'Nebraska Won the Conference This Season     '
-	
-	let confChamp = document.createElement('input');
-	confChamp.name = 'confChamp';
-	confChamp.type = 'radio';
-	confChamp.label = 'Won Conference?';
-	confChamp.checked = false;*/
 
-	/*let apQuestion = document.createElement('p');
-	apQuestion.name ='apQuestion';
+	let confChampYes = document.createElement('input');
+	confChampYes.name = 'confChamp';
+	confChampYes.type = 'radio';
+	confChampYes.label = 'Won Conference?';
+	confChampYes.value = 'true';
+	confChampYes.checked = false;
+
+	let labelYes = document.createElement('label');
+	labelYes.textContent = 'Yes'
+
+	let confChampNo = document.createElement('input');
+	confChampNo.name = 'confChamp';
+	confChampNo.type = 'radio';
+	confChampNo.label = 'Won Conference?';
+	confChampNo.value = 'false';
+	confChampNo.checked = false;
+
+	let labelNo = document.createElement('label');
+	labelNo.textContent = 'No'
+
+	let apQuestion = document.createElement('p');
+	apQuestion.name = 'apQuestion';
 	apQuestion.textContent = 'Nebraska Won the AP Poll Title This Season	'
-	
-	let natChampAp = document.createElement('input');
-	natChampAp.name = 'seasonApYes';
-	natChampAp.type = 'radio';
-	natChampAp.label = 'Won AP Poll?';
-	natChampAp.checked = false;
-	
+
+	let natChampApYes = document.createElement('input');
+	natChampApYes.name = 'natChampAp';
+	natChampApYes.type = 'radio';
+	natChampApYes.label = 'Won AP Poll?';
+	natChampApYes.value = 'true';
+	natChampApYes.checked = false;
+
+	let natChampApNo = document.createElement('input');
+	natChampApNo.name = 'natChampAp';
+	natChampApNo.type = 'radio';
+	natChampApNo.label = 'Won AP Poll?';
+	natChampApNo.value = 'false';
+	natChampApNo.checked = false;
+
 	let coachQuestion = document.createElement('p');
 	coachQuestion.name = 'coachQuestion';
 	coachQuestion.textContent = 'Nebraska Won the Coach\'s Poll Title This Season	'
-	
-	let natChampCoach = document.createElement('input');
-	natChampCoach.name = 'seasonCoachYes';
-	natChampCoach.type = 'radio';
-	natChampCoach.label = 'Won Coach\'s Poll?';
-	natChampCoach.checked = false;*/
+
+	let natChampCoachYes = document.createElement('input');
+	natChampCoachYes.name = 'natChampCoach';
+	natChampCoachYes.type = 'radio';
+	natChampCoachYes.label = 'Won Coach\'s Poll?';
+	natChampCoachYes.value = 'true';
+	natChampCoachYes.checked = false;
+
+	let natChampCoachNo = document.createElement('input');
+	natChampCoachNo.name = 'natChampCoach';
+	natChampCoachNo.type = 'radio';
+	natChampCoachNo.label = 'Won Coach\'s Poll?';
+	natChampCoachNo.value = 'false';
+	natChampCoachNo.checked = false;
 
 	let createSeason = document.createElement('button');
 	createSeason.name = 'createSeason';
@@ -406,19 +479,363 @@ function createAddSeasonForm() {
 	createSeason.class = "btn-dark";
 
 	addSeasonForm.appendChild(addSeasonHead);
+	br = document.createElement('br');
+	addSeasonForm.appendChild(br);
 	addSeasonForm.appendChild(labelYear);
 	addSeasonForm.appendChild(year);
+	br = document.createElement('br');
+	addSeasonForm.appendChild(br);
 	addSeasonForm.appendChild(labelRecord);
 	addSeasonForm.appendChild(record);
-	/*addSeasonForm.appendChild(confQuestion);
-	confQuestion.appendChild(confChamp);
+	br = document.createElement('br');
+	addSeasonForm.appendChild(br);
+	addSeasonForm.appendChild(confQuestion);
+	confQuestion.appendChild(labelYes);
+	confQuestion.appendChild(confChampYes);
+	confQuestion.appendChild(labelNo);
+	confQuestion.appendChild(confChampNo);
 	addSeasonForm.appendChild(apQuestion);
-	apQuestion.appendChild(natChampAp);
+	labelYes = document.createElement('label');
+	labelYes.textContent = 'Yes';
+	apQuestion.appendChild(labelYes);
+	apQuestion.appendChild(natChampApYes);
+	labelNo = document.createElement('label');
+	labelNo.textContent = 'No';
+	apQuestion.appendChild(labelNo);
+	apQuestion.appendChild(natChampApNo);
 	addSeasonForm.appendChild(coachQuestion);
-	coachQuestion.appendChild(natChampCoach);*/
+	labelYes = document.createElement('label');
+	labelYes.textContent = 'Yes';
+	coachQuestion.appendChild(labelYes);
+	coachQuestion.appendChild(natChampCoachYes);
+	labelNo = document.createElement('label');
+	labelNo.textContent = 'No';
+	coachQuestion.appendChild(labelNo);
+	coachQuestion.appendChild(natChampCoachNo);
 	addSeasonForm.appendChild(createSeason);
 
 	addSeasonDiv.appendChild(addSeasonForm);
 	seasonTable.appendChild(addSeasonDiv);
 
 }
+
+function createGameForm() {
+	
+	let gameTable = document.getElementById('gameTableDiv');
+	gameTable.style.display = 'none';
+	let seasonBtn = document.getElementById('season-toggle');
+	seasonBtn.style.display = 'inline-block';
+
+	let gameForm = document.getElementById('dataDiv');
+	
+
+	let addGameDiv = document.createElement('div');
+	addGameDiv.id = 'addGameDiv';
+
+	let addGameForm = document.createElement('form');
+	addGameForm.name = 'addGameForm';
+
+	let addGameFormHead = document.createElement('H3');
+	addGameFormHead.name = 'addGameFormHead';
+	addGameFormHead.textContent = 'Add A New Game';
+
+	let gameDate = document.createElement('input');
+	gameDate.name = 'gameDate';
+	gameDate.type = 'date';
+	gameDate.label = 'Date';
+	gameDate.placeholder = '2023-09-01';
+
+	let dayOfWeek = document.createElement('input');
+	dayOfWeek.name = 'dayOfWeek';
+	dayOfWeek.type = 'text';
+	dayOfWeek.label = 'Day Of week';
+	dayOfWeek.value = 'Saturday';
+
+	let homeGameQuestion = document.createElement('p');
+	homeGameQuestion.textContent = 'Is this a Home Game? '
+
+	let homeGameT = document.createElement('input');
+	homeGameT.name = 'homeGame';
+	homeGameT.type = 'radio';
+	homeGameT.label = 'Home Game';
+	homeGameT.value = 'True';
+	homeGameT.checked = false;
+
+	let homeGameF = document.createElement('input');
+	homeGameF.name = 'homeGame';
+	homeGameF.type = 'radio';
+	homeGameF.label = 'Home Game';
+	homeGameF.value = 'False';
+	homeGameF.checked = false;
+
+	let opponent = document.createElement('input');
+	opponent.name = 'opponent';
+	opponent.type = 'text';
+	opponent.label = 'Opponent';
+	opponent.placeholder = 'University Of Oklahoma';
+
+	let oppTeamName = document.createElement('input');
+	oppTeamName.name = 'oppTeamName';
+	oppTeamName.type = 'text';
+	oppTeamName.label = 'Opponent\'s Team Name';
+	oppTeamName.placeholder = 'Sooners';
+
+	let oppLogoUrl = document.createElement('input');
+	oppLogoUrl.name = 'oppLogoUrl';
+	oppLogoUrl.type = 'text';
+	oppLogoUrl.label = 'Opponent\'s Logo URL';
+	oppLogoUrl.placeholder = 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/oklahoma.png'
+
+	let conference = document.createElement('input');
+	conference.name = 'conference';
+	conference.type = 'text';
+	conference.label = 'Opponent\'s Conference';
+	conference.placeholder = 'Big 8';
+	
+	let winQuestion = document.createElement('p');
+	winQuestion.textContent = 'Did Nebraska win this game? '
+
+	let winT = document.createElement('input');
+	winT.name = 'win';
+	winT.type = 'radio';
+	winT.lable = 'We Won';
+	winT.value = 'True';
+	winT.clicked = false;
+
+	let winF = document.createElement('input');
+	winF.name = 'win';
+	winF.type = 'radio';
+	winF.lable = 'We Won';
+	winF.value = 'False';
+	winF.clicked = false;
+
+	let points = document.createElement('input');
+	points.name = 'points';
+	points.type = 'number';
+	points.label = 'Nebraska\'s Score';
+	points.placeholder = 0;
+
+	let oppPoints = document.createElement('input');
+	oppPoints.name = 'oppPoints';
+	oppPoints.type = 'number';
+	oppPoints.label = 'Opponent\'s Score';
+	oppPoints.placeholder = 0;
+	
+	let tvQuestion = document.createElement('p');
+	tvQuestion.textContent = 'Was this game on TV? '
+
+	let televisedT = document.createElement('input');
+	televisedT.name = 'televised';
+	televisedT.type = 'radio';
+	televisedT.lable = 'Was On TV: ';
+	televisedT.value = 'true';
+	televisedT.clicked = false;
+
+	let televisedF = document.createElement('input');
+	televisedF.name = 'televised';
+	televisedF.type = 'radio';
+	televisedF.lable = 'Was On TV: ';
+	televisedF.value = 'false';
+	televisedF.clicked = false;
+
+	let network = document.createElement('input');
+	network.name = 'network';
+	network.type = 'text';
+	network.lable = 'Was On Channel';
+	network.placeholder = 'ESPN';
+	
+	let bowlQuestion = document.createElement('p');
+	bowlQuestion.textContent = 'Was this a bowl game? '
+
+	let bowlGameT = document.createElement('input');
+	bowlGameT.name = 'bowlGame';
+	bowlGameT.type = 'radio';
+	bowlGameT.lable = 'This was a Bowl Game: ';
+	bowlGameT.value = 'true';
+	bowlGameT.clicked = false;
+
+	let bowlGameF = document.createElement('input');
+	bowlGameF.name = 'bowlGame';
+	bowlGameF.type = 'radio';
+	bowlGameF.lable = 'This was a Bowl Game: ';
+	bowlGameF.value = 'false';
+	bowlGameF.clicked = false;
+
+	let location = document.createElement('input');
+	location.name = 'location';
+	location.type = 'hidden';
+	location.value = 1;
+
+	let season = document.createElement('input');
+	season.name = 'season';
+	season.type = 'number';
+	season.mim = 1901;
+	season.label = 'What season was this game played in? ';
+	season.placeholder = 2023;
+
+	let createGame = document.createElement('button');
+	createGame.name = 'createGame';
+	createGame.id = 'createGame';
+	createGame.textContent = 'Add Game';
+	createGame.class = "btn-dark";
+
+	let label = document.createElement('label');
+	
+	
+	let br = document.createElement('br');
+
+	addGameForm.appendChild(addGameFormHead);
+	addGameForm.appendChild(br);
+	label.textContent = 'Date: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(gameDate);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'Day of week: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(dayOfWeek);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	addGameForm.appendChild(homeGameQuestion);
+	label = document.createElement('label');
+	label.textContent = 'Yes';
+	homeGameQuestion.appendChild(label);
+	homeGameQuestion.appendChild(homeGameT);
+	label = document.createElement('label');
+	label.textContent = 'No'
+	homeGameQuestion.appendChild(label);
+	homeGameQuestion.appendChild(homeGameF);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'University: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(opponent);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'Team: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(oppTeamName);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'URL: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(oppLogoUrl);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'Opponent Conference: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(conference);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	addGameForm.appendChild(winQuestion);
+	label = document.createElement('label');
+	label.textContent = 'Yes';
+	winQuestion.appendChild(label)
+	winQuestion.appendChild(winT);
+	label = document.createElement('label');
+	label.textContent = 'No';
+	winQuestion.appendChild(label)
+	winQuestion.appendChild(winF);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'Nebraska\'s Score: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(points);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'Oppopnent\'s Score: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(oppPoints);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	addGameForm.appendChild(tvQuestion);
+	label = document.createElement('label');
+	label.textContent = 'Yes';
+	tvQuestion.appendChild(label)
+	tvQuestion.appendChild(televisedT);
+	label = document.createElement('label');
+	label.textContent = 'No';
+	tvQuestion.appendChild(label)
+	tvQuestion.appendChild(televisedF);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'Aired on which network if televised: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(network);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	addGameForm.appendChild(bowlQuestion);
+	label = document.createElement('label');
+	label.textContent = 'Yes';
+	bowlQuestion.appendChild(label)
+	bowlQuestion.appendChild(bowlGameT);
+	label = document.createElement('label');
+	label.textContent = 'No';
+	bowlQuestion.appendChild(label)
+	bowlQuestion.appendChild(bowlGameF);
+	addGameForm.appendChild(location);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	label = document.createElement('label');
+	label.textContent = 'Which season should this game be added to?: ';
+	addGameForm.appendChild(label);
+	addGameForm.appendChild(season);
+	br = document.createElement('br');
+	addGameForm.append(br);
+	addGameForm.appendChild(createGame);
+
+	addGameDiv.appendChild(addGameForm);
+	gameForm.appendChild(addGameDiv);
+
+}
+
+function postGame(gameObject) {
+	let xhr = new XMLHttpRequest();
+	let seasonYear = gameObject.season.year;
+	xhr.open('POST', 'api/seasons/' + seasonYear + '/games');
+
+	xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				let createdGame = JSON.parse(xhr.responseText);
+				displayGameTable(seasonYear);
+			}
+			else {
+				displayError('Failed To Add Season:	' + xhr.status);
+				console.error(xhr.status + ': ' + xhr.responseText);
+			}
+		}
+	}
+
+	let gameObjectJson = JSON.stringify(gameObject);
+	console.log(gameObjectJson);
+	xhr.send(gameObjectJson);
+}
+
+
+
+
+
+
+
+
+
+
