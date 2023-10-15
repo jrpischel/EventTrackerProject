@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+
+
+
+body {
+    position: relative; 
+    height: 100%;
+    width: 100%;
+    display: flex;
+   /* align-items: center;
+    justify-content: center;*/
+    min-height: 1000px;
+   
+}
+
+body::before {    
+      content: "";
+      background-image: url('../assets/memorialstadium.jpg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.60;
+      z-index: -999;
+      min-height: 100vh;
+      min-width: 1500px;
+}
+
+
+
+
+
+.container {
+	padding-top: 80px;
+}
+
+table,
+thead,
+tbody,
+th, 
+tr,
+td {
+	border: solid black 1px;
+	border-spacing: 1px;
+}
+
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: black;
+   color: white;
+   text-align: center;
+}
+
+
+th {
+	text-align: center;
+}
+
+td {
+	text-align: center;
+}
+
+
+

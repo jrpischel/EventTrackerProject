@@ -1,22 +1,39 @@
 package com.skilldistillery.nebraskafootball.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.nebraskafootball.entities.Game;
+import com.skilldistillery.nebraskafootball.entities.Location;
 import com.skilldistillery.nebraskafootball.repositories.GameRepository;
+import com.skilldistillery.nebraskafootball.repositories.LocationRepository;
+import com.skilldistillery.nebraskafootball.repositories.SeasonRepository;
 
 @Service
 public class GameServiceImpl implements GameService {
 	
 	@Autowired
 	private GameRepository gameRepo;
+	
+	@Autowired
+	private SeasonRepository seasonRepo;
+	
+	@Autowired
+	private LocationRepository locationRepo;
 
 	@Override
-	public List<Game> getAllGames() {
-		return gameRepo.findAll();
+	public List<Game> getAllGames(int seasonYear) {
+		List<Game> games = gameRepo.findAll();
+		List<Game>	season = new ArrayList<>();
+		for (Game game : games) {
+			if (game.getSeason().getYear() == seasonYear) {
+				season.add(game);
+			}
+		}	
+		return season;
 	}
 
 	@Override
@@ -26,11 +43,12 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public Game createGame(Game game) {
+		locationRepo.saveAndFlush(game.getLocation());
 		return gameRepo.saveAndFlush(game);
 	}
 
 	@Override
-	public Game updateGame(int gameId, Game game) {
+	public Game updateGame(int seasonYear, int gameId, Game game) {
 		Game dbGame = gameRepo.searchById(gameId);
 		if(dbGame != null) {
 			dbGame.setDayOfWeek(game.getDayOfWeek());
@@ -42,13 +60,9 @@ public class GameServiceImpl implements GameService {
 			dbGame.setWin(game.isWin());
 			dbGame.setPoints(game.getPoints());
 			dbGame.setOppPoints(game.getOppPoints());
-			dbGame.setRecord(game.getRecord());
 			dbGame.setTelevised(game.isTelevised());
 			dbGame.setNetwork(game.getNetwork());
 			dbGame.setBowlGame(game.isBowlGame());
-			if(game.getLocation() != null) {
-				dbGame.setLocation(game.getLocation());
-			}
 			gameRepo.saveAndFlush(dbGame);
 		}
 		return dbGame;

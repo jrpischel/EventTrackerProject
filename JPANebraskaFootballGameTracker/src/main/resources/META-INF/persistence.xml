@@ -7,6 +7,8 @@
   <!-- Begin Entities -->
 
   	<class> com.skilldistillery.nebraskafootball.entities.Game </class>
+  	<class> com.skilldistillery.nebraskafootball.entities.Location </class>
+  	<class> com.skilldistillery.nebraskafootball.entities.Season </class>
   	
   
   	<!-- End Entities -->

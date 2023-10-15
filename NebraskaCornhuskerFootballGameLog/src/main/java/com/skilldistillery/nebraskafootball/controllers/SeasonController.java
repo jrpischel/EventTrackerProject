@@ -16,67 +16,71 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.nebraskafootball.entities.Game;
+import com.skilldistillery.nebraskafootball.entities.Season;
 import com.skilldistillery.nebraskafootball.services.GameService;
+import com.skilldistillery.nebraskafootball.services.SeasonService;
 
 @RequestMapping("api")
 @RestController
-public class GameController {
-
+public class SeasonController {
+	
+	@Autowired
+	private SeasonService seasonService;
 	@Autowired
 	private GameService gameService;
-
-	@GetMapping("seasons/{seasonYear}/games")
-	public List<Game> getGameList(@PathVariable int seasonYear) {
-		return gameService.getAllGames(seasonYear);
+	
+	@GetMapping("seasons")
+	public List<Season> getSeasonList() {
+		return seasonService.getAllSeasons();
 	}
-
-	@GetMapping("games/{gameId}")
-	public Game getGameById(@PathVariable int gameId, HttpServletResponse res) {
-		Game game = gameService.getGame(gameId);
-		if (game == null) {
+	
+	@GetMapping("seasons/{seasonYear}")
+	public Season getSeasonByYear(@PathVariable int seasonYear, HttpServletResponse res) {
+		Season season = seasonService.getSeasonByYear(seasonYear);
+		if (season == null) {
 			res.setStatus(404);
 		}
-		return game;
+		return season;
 	}
 
-	@PostMapping("seasons/{seasonYear}/games")
-	public Game createGame(@RequestBody Game game, @PathVariable int seasonYear, HttpServletResponse res, HttpServletRequest req) {
-		Game newGame = null;
+	@PostMapping("seasons")
+	public Season createSeason(@RequestBody Season season, HttpServletResponse res, HttpServletRequest req) {
+		Season newSeason = null;
 		try {
-			if (newGame == null) {
+			if (newSeason == null) {
 				res.setStatus(404);
 			}
-			newGame = gameService.createGame(game);
+			newSeason = seasonService.createSeason(season);
 			res.setStatus(201);
 			StringBuffer url = req.getRequestURL();
-			url.append("/").append(newGame.getId());
+			url.append("/").append(newSeason.getYear());
 			res.setHeader("Location", url.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(400);
 		}
-		return newGame;
+		return newSeason;
 	}
 	
-	@PutMapping("seasons/{seasonYear}/games/{gameId}")
-	public Game updateGame(@RequestBody Game game, @PathVariable int seasonYear, @PathVariable int gameId, HttpServletResponse res) {
-		Game updatedGame = null;
+	@PutMapping("seasons/{seasonYear}")
+	public Season updateSeason(@RequestBody Season season, @PathVariable int seasonYear, HttpServletResponse res) {
+		Season updatedSeason = null;
 		try {
-			updatedGame = gameService.updateGame(seasonYear, gameId, game);
-			if(updatedGame == null) {
+			updatedSeason = seasonService.updateSeason(seasonYear, season);
+			if(updatedSeason == null) {
 				res.setStatus(404);
 			}
 		} catch (Exception e) {
 			res.setStatus(400);
 			e.printStackTrace();
 		}
-		return updatedGame;
+		return updatedSeason;
 	}
 	
-	@DeleteMapping("games/{gameId}")
-	public void deleteGame(@PathVariable int gameId, HttpServletResponse res) {
+	@DeleteMapping("seasons/{seasonYear}")
+	public void deleteSeason(@PathVariable int seasonYear, HttpServletResponse res) {
 		try {
-			if(gameService.deleteGame(gameId)) {
+			if(seasonService.deleteSeason(seasonYear)) {
 				res.setStatus(204);
 			} else {
 				res.setStatus(404);
@@ -88,3 +92,6 @@ public class GameController {
 	}
 
 }
+
+
+

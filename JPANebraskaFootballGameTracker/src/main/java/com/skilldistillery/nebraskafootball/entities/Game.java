@@ -1,7 +1,6 @@
 package com.skilldistillery.nebraskafootball.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -45,7 +45,6 @@ public class Game {
 	@Column(name = "opp_points")
 	private int oppPoints;
 	
-	private String record;
 	
 	private boolean televised;
 	
@@ -57,6 +56,10 @@ public class Game {
 	@OneToOne
 	@JoinColumn(name = "location_id")
 	private Location location;
+	
+	@ManyToOne
+	@JoinColumn(name = "season_year")
+	private Season season;
 	
 	
 
@@ -175,16 +178,6 @@ public class Game {
 	}
 
 
-	public String getRecord() {
-		return record;
-	}
-
-
-	public void setRecord(String record) {
-		this.record = record;
-	}
-
-
 	public boolean isTelevised() {
 		return televised;
 	}
@@ -225,6 +218,16 @@ public class Game {
 	}
 
 
+	public Season getSeason() {
+		return season;
+	}
+
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -247,8 +250,8 @@ public class Game {
 		return "Game [id=" + id + ", gameDate=" + gameDate + ", dayOfWeek=" + dayOfWeek + ", homeGame=" + homeGame
 				+ ", opponent=" + opponent + ", oppTeamName=" + oppTeamName + ", oppLogoUrl=" + oppLogoUrl
 				+ ", conference=" + conference + ", win=" + win + ", points=" + points + ", oppPoints=" + oppPoints
-				+ ", record=" + record + ", televised=" + televised + ", network=" + network + ", bowlGame=" + bowlGame
-				+ ", location=" + location + "]";
+				+ ", televised=" + televised + ", network=" + network + ", bowlGame=" + bowlGame + ", location="
+				+ location + ", season=" + season + "]";
 	}
 
 	

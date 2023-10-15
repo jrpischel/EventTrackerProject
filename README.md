@@ -73,18 +73,23 @@
 
 ### Endpoints
 
-| HTTP Verb | URI             | Request Body | Response Body | Status |
-|-----------|-----------------|--------------|---------------|---------|
-| GET       | `/api/games`    |              | List of games | 200   |
-| GET       | `/api/games/1` |              | Single game   | 200 or 404 |
-| POST      | `/api/games`    | JSON of new dive       | JSON of created game | 201 or 400 |
-| PUT       | `/api/games/1` | JSON for updating dive | JSON of updated game | 200, 404, or 400 |
-| DELETE    | `/api/games/1` |              | | 204, 404, or 400 |
-| GET       | `/api/games/locations`    |              | List of locations | 200   |
-| GET       | `/api/games/locations/1` |              | Single location   | 200 or 404 |
-| POST      | `/api/games/locations`    | JSON of new dive       | JSON of created location | 201 or 400 |
-| PUT       | `/api/games/locations/1` | JSON for updating dive | JSON of updated location | 200, 404, or 400 |
-| DELETE    | `/api/games/locations/1` |              | | 204, 404, or 400 |
+| HTTP Verb | URI                                        | Request Body               | Response Body            | Status           |
+|-----------|--------------------------------------------|----------------------------|--------------------------|------------------|
+| GET       | `/api/seasons/{seasonYear}/games`          |                            | List of games by season  | 200              |
+| GET       | `/api/games/{gameId}`                      |                            | Single game              | 200 or 404       |
+| POST      | `/api/seasons/{seasonYear}/games`          | JSON of new game           | JSON of created game     | 201 or 400       |
+| PUT       | `/api/seasons/{seasonYear}/games/{gameId}` | JSON for updating game     | JSON of updated game     | 200, 404, or 400 |
+| DELETE    | `/api/games/{gameId}`                      |                            |                          | 204, 404, or 400 |
+| GET       | `/api/games/locations`                     |                            | List of locations        | 200              |
+| GET       | `/api/games/locations/{locationId}`        |                            | Single location          | 200 or 404       |
+| POST      | `/api/games/locations`                     | JSON of new location       | JSON of created location | 201 or 400       |
+| PUT       | `/api/games/locations/{locationId}`        | JSON for updating location | JSON of updated location | 200, 404, or 400 |
+| DELETE    | `/api/games/locations/{locationId}`        |                            |                          | 204, 404, or 400 |
+| GET       | `/api/seasons`                             |                            | List of seasons          | 200              |
+| GET       | `/api/seasons/{seasonYear}`                |                            | Single season            | 200 or 404       |
+| POST      | `/api/seasons`                             | JSON of new season         | JSON of created season   | 201 or 400       |
+| PUT       | `/api/seasons/{seasonYear`                 | JSON for updating season   | JSON of updated season   | 200, 404, or 400 |
+| DELETE    | `/api/seasons/{seasonYear}`                |                            |                          | 204, 404, or 400 |
 
 
 #### JSON
