@@ -30,6 +30,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `season`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `season` ;
+
+CREATE TABLE IF NOT EXISTS `season` (
+  `year` INT NOT NULL,
+  `record` VARCHAR(45) NULL,
+  `conference_champ` TINYINT NOT NULL DEFAULT 0,
+  `national_champ_ap` TINYINT NOT NULL DEFAULT 0,
+  `national_champ_coach` TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`year`),
+  UNIQUE INDEX `year_UNIQUE` (`year` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `game`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `game` ;
@@ -46,16 +62,22 @@ CREATE TABLE IF NOT EXISTS `game` (
   `win` TINYINT NULL DEFAULT 1,
   `points` INT NULL,
   `opp_points` INT NULL,
-  `record` VARCHAR(45) NULL,
   `televised` TINYINT NULL DEFAULT 0,
   `network` VARCHAR(45) NULL,
   `bowl_game` TINYINT NULL DEFAULT 0,
   `location_id` INT NOT NULL,
+  `season_year` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_game_location_idx` (`location_id` ASC),
+  INDEX `fk_game_season1_idx` (`season_year` ASC),
   CONSTRAINT `fk_game_location`
     FOREIGN KEY (`location_id`)
     REFERENCES `location` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_game_season1`
+    FOREIGN KEY (`season_year`)
+    REFERENCES `season` (`year`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -89,23 +111,34 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `season`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `nebraskafootballgamedb`;
+INSERT INTO `season` (`year`, `record`, `conference_champ`, `national_champ_ap`, `national_champ_coach`) VALUES (1994, '13-0', 1, 1, 1);
+INSERT INTO `season` (`year`, `record`, `conference_champ`, `national_champ_ap`, `national_champ_coach`) VALUES (1995, '12-0', 1, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `game`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nebraskafootballgamedb`;
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (1, '1994-8-28', 'Sunday', 0, '(24) West Virginia', 'Mountaineers', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/west-virginia.png', 'Big East', 1, 31, 0, '1-0', 1, 'NBC', 0, 2);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (2, '1994-9-8', 'Thursday', 0, 'Texas Tech', 'Red Raiders', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/texas-tech.png', 'Southwest ', 1, 42, 16, '2-0', 1, 'ESPN', 0, 3);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (3, '1994-9-17', 'Saturday', 1, '(13) UCLA', 'Bruins', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/ucla.png', 'Pac-10', 1, 49, 21, '3-0', 1, 'ABC', 0, 1);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (4, '1994-9-24', 'Saturday', 1, 'Pacific', 'Tigers', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/pacific.png', 'Big West', 1, 70, 21, '4-0', 0, NULL, 0, 1);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (5, '1994-10-1', 'Saturday', 1, 'Wyoming', 'Cowboys', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/wyoming.png', 'Western Athletic Conference', 1, 42, 32, '5-0', 1, 'PPV', 0, 1);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (6, '1994-10-8', 'Saturday', 1, 'Oklahoma State', 'Cowboys', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/oklahoma-state.png', 'Big 8', 1, 32, 3, '6-0', 0, NULL, 0, 1);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (7, '1994-10-15', 'Saturday', 0, '(16) Kansas State', 'Wildcats', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/kansas-state.png', 'Big 8', 1, 17, 6, '7-0', 1, 'ABC', 0, 4);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (8, '1994-10-22', 'Saturday', 0, 'Missouri', 'Tigers', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/missouri.png', 'Big 8', 1, 42, 7, '8-0', 0, NULL, 0, 5);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (9, '1994-10-29', 'Saturday', 1, '(2) Colorado', 'Buffaloes', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/colorado.png', 'Big 8', 1, 24, 7, '9-0', 1, 'ABC', 0, 1);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (10, '1994-11-5', 'Saturday', 1, 'Kansas', 'Jayhawks', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/kansas.png', 'Big 8', 1, 45, 17, '10-0', 0, NULL, 0, 1);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (11, '1994-11-12', 'Saturday', 0, 'Iowa State', 'Cyclones', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/iowa-state.png', 'Big 8', 1, 28, 12, '11-0', 0, NULL, 0, 6);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (12, '1994-11-25', 'Friday', 0, 'Oklahoma', 'Sooners', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/oklahoma.png', 'Big 8', 1, 13, 3, '12-0', 1, 'ABC', 0, 7);
-INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `record`, `televised`, `network`, `bowl_game`, `location_id`) VALUES (13, '1995-1-1', 'Sunday', 0, '(3) Miami (FL)', 'Hurricanes', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/miami-fl.png', 'Big East', 1, 24, 17, '13-0', 1, 'NBC', 1, 8);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (1, '1994-8-28', 'Sunday', 0, '(24) West Virginia', 'Mountaineers', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/west-virginia.png', 'Big East', 1, 31, 0, 1, 'NBC', 0, 2, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (2, '1994-9-8', 'Thursday', 0, 'Texas Tech', 'Red Raiders', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/texas-tech.png', 'Southwest ', 1, 42, 16, 1, 'ESPN', 0, 3, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (3, '1994-9-17', 'Saturday', 1, '(13) UCLA', 'Bruins', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/ucla.png', 'Pac-10', 1, 49, 21, 1, 'ABC', 0, 1, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (4, '1994-9-24', 'Saturday', 1, 'Pacific', 'Tigers', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/pacific.png', 'Big West', 1, 70, 21, 0, NULL, 0, 1, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (5, '1994-10-1', 'Saturday', 1, 'Wyoming', 'Cowboys', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/wyoming.png', 'Western Athletic Conference', 1, 42, 32, 1, 'PPV', 0, 1, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (6, '1994-10-8', 'Saturday', 1, 'Oklahoma State', 'Cowboys', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/oklahoma-state.png', 'Big 8', 1, 32, 3, 0, NULL, 0, 1, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (7, '1994-10-15', 'Saturday', 0, '(16) Kansas State', 'Wildcats', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/kansas-state.png', 'Big 8', 1, 17, 6, 1, 'ABC', 0, 4, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (8, '1994-10-22', 'Saturday', 0, 'Missouri', 'Tigers', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/missouri.png', 'Big 8', 1, 42, 7, 0, NULL, 0, 5, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (9, '1994-10-29', 'Saturday', 1, '(2) Colorado', 'Buffaloes', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/colorado.png', 'Big 8', 1, 24, 7, 1, 'ABC', 0, 1, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (10, '1994-11-5', 'Saturday', 1, 'Kansas', 'Jayhawks', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/kansas.png', 'Big 8', 1, 45, 17, 0, NULL, 0, 1, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (11, '1994-11-12', 'Saturday', 0, 'Iowa State', 'Cyclones', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/iowa-state.png', 'Big 8', 1, 28, 12, 0, NULL, 0, 6, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (12, '1994-11-25', 'Friday', 0, 'Oklahoma', 'Sooners', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/oklahoma.png', 'Big 8', 1, 13, 3, 1, 'ABC', 0, 7, 1994);
+INSERT INTO `game` (`id`, `game_date`, `day_of_week`, `home_game`, `opponent`, `opp_team_name`, `opp_logo_url`, `conference`, `win`, `points`, `opp_points`, `televised`, `network`, `bowl_game`, `location_id`, `season_year`) VALUES (13, '1995-1-1', 'Sunday', 0, '(3) Miami (FL)', 'Hurricanes', 'https://cdn.ssref.net/req/202310031/tlogo/ncaa/miami-fl.png', 'Big East', 1, 24, 17, 1, 'NBC', 1, 8, 1994);
 
 COMMIT;
 
