@@ -27,7 +27,7 @@ body::before {
       opacity: 0.60;
       z-index: -999;
       min-height: 100vh;
-      min-width: 1500px;
+      min-width: 1800px;
 }
 
 
