@@ -3,6 +3,7 @@ console.log('script.js loaded');
 window.addEventListener('load', function(e) {
 	console.log('Page loaded');
 	init();
+	updateGame(updateGameObject);
 })
 
 function init() {
@@ -1032,7 +1033,7 @@ function updateSeason(seasonUpdateObject) {
 	xhr.send(seasonUpdateObjectJson);
 }
 
-function updateGame(gameUpdateObject) {
+function putGame(gameUpdateObject) {
 	let xhr = new XMLHttpRequest();
 	let seasonYear = gameUpdateObject.season.year;
 	let gameId = gameUpdateObject.id;
@@ -1047,7 +1048,7 @@ function updateGame(gameUpdateObject) {
 				loadGamesBySeason(seasonYear);
 			}
 			else {
-				displayError('Failed To Update Season:	' + xhr.status);
+				displayError('Failed To Update Game:	' + xhr.status);
 				console.error(xhr.status + ': ' + xhr.responseText);
 			}
 		}
@@ -1343,6 +1344,7 @@ console.log(game.id);
 	updateGame.addEventListener('click', function(e) {
 		e.preventDefault();
 		let gameUpdateObject = {
+				id: game.id,
 				gameDate: document.updateGameForm.gameDate.value,
 				dayOfWeek: document.updateGameForm.dayOfWeek.value,
 				homeGame: document.updateGameForm.homeGame.value,
@@ -1356,21 +1358,42 @@ console.log(game.id);
 				televised: document.updateGameForm.televised.value,
 				network: document.updateGameForm.network.value,
 				bowlGame: document.updateGameForm.bowlGame.value,
-				/*location: {
+				location: {
 					id: 1,
 					stadium: "Memorial Stadium",
 					city: "Lincoln",
 					state: "Nebraska"
-				},*/
+				},
 				season: {
 					year: document.updateGameForm.season.value,
 				}
 			}
 			console.log(gameUpdateObject);
-			updateGame(gameUpdateObject);
+			putGame(gameUpdateObject);
 	})
 
 }
+
+/*function deleteGame(gameId) {
+	let xhr = new XMLHttpRequest();
+	let seasonYear = gameUpdateObject.season.year;
+	let gameId = gameUpdateObject.id;
+	xhr.open('PUT', 'api/seasons/' + seasonYear + '/games/' + gameId);
+
+	xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				let updatedGame = JSON.parse(xhr.responseText);
+				loadGamesBySeason(seasonYear);
+			}
+			else {
+				displayError('Failed To Update Game:	' + xhr.status);
+				console.error(xhr.status + ': ' + xhr.responseText);
+			}
+		}
+	}*/
 
 
 
