@@ -241,8 +241,6 @@ function displayAllGames(gameTable) {
 	thpoints.textContent = "NU Points";
 	let thopppoints = document.createElement('th');
 	thopppoints.textContent = "Opp Points";
-	let threcord = document.createElement('th');
-	threcord.textContent = "NU Season Record";
 	let thtv = document.createElement('th');
 	thtv.textContent = "Televised";
 	let thnetwork = document.createElement('th');
@@ -271,7 +269,6 @@ function displayAllGames(gameTable) {
 	tr.appendChild(thwin);
 	tr.appendChild(thpoints);
 	tr.appendChild(thopppoints);
-	tr.appendChild(threcord);
 	tr.appendChild(thtv);
 	tr.appendChild(thnetwork);
 	tr.appendChild(thbowl);
@@ -320,9 +317,6 @@ function displayAllGames(gameTable) {
 		td.textContent = game.oppPoints;
 		tr.appendChild(td);
 		td = document.createElement('td');
-		td.textContent = game.record;
-		tr.appendChild(td);
-		td = document.createElement('td');
 		td.textContent = game.televised ? "X" : "";
 		tr.appendChild(td);
 		td = document.createElement('td');
@@ -353,12 +347,12 @@ function displayAllGames(gameTable) {
 		deleteGameBtn.type = "button";
 		deleteGameBtn.className = "btn";
 		deleteGameBtn.value = "Delete Game";
-		//td = document.createElement('td');
 		td.appendChild(deleteGameBtn);
 		tr.appendChild(td);
 		
 		updateGameBtn.addEventListener('click', function(e) {
 			e.preventDefault();
+			let gameId = e.target.parentElement
 			updateGameForm(game);	
 		})
 		deleteGameBtn.addEventListener('click', function(e) {
