@@ -1,0 +1,397 @@
+<div *ngIf="addNewGame && !selectedGame" class="container" id="addGameFormDiv">
+  <form id="addGameForm">
+    <div class="mb-3">
+      <label for="gameDate" class="form-label">Date:</label>
+      <input
+        type="date"
+        class="form-control"
+        name="gameDate"
+        [(ngModel)]="newGame.gameDate"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="day" class="form-label">Day of week:</label>
+      <input
+        type="text"
+        placeholder="Saturday"
+        class="form-control"
+        name="day"
+        [(ngModel)]="newGame.dayOfWeek"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="homeGame"
+        [(ngModel)]="newGame.homeGame"
+      />
+      <label class="form-check-label" for="homeGame"> Home Game </label>
+    </div>
+    <div class="mb-3">
+      <label for="opponent" class="form-label">Opponent:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="opponent"
+        [(ngModel)]="newGame.opponent"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="oppTeamName" class="form-label">Opponent Team Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="oppTeamName"
+        [(ngModel)]="newGame.oppTeamName"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="oppLogoUrl" class="form-label">Opponent Logo URL:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="oppLogoUrl"
+        [(ngModel)]="newGame.oppLogoUrl"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="conference" class="form-label">Opponent Conference:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="conference"
+        [(ngModel)]="newGame.conference"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="win"
+        [(ngModel)]="newGame.win"
+      />
+      <label class="form-check-label" for="win"> Nebraska Won </label>
+    </div>
+    <div class="mb-3">
+      <label for="points" class="form-label">Nebraska's Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        name="points"
+        [(ngModel)]="newGame.points"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="oppPoints" class="form-label">Opponent's Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        name="oppPoints"
+        [(ngModel)]="newGame.oppPoints"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="televised"
+        [(ngModel)]="newGame.televised"
+      />
+      <label class="form-check-label" for="televised"> Was on TV </label>
+    </div>
+    <div class="mb-3">
+      <label for="network" class="form-label">Network:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="network"
+        [(ngModel)]="newGame.network"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="bowlGame"
+        [(ngModel)]="newGame.bowlGame"
+      />
+      <label class="form-check-label" for="bowlGame"> Bowl Game </label>
+    </div>
+    <div class="mb-3">
+      <label for="stadium" class="form-label">Stadium:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="stadium"
+        [(ngModel)]="newGame.location.stadium"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="city" class="form-label">City:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="city"
+        [(ngModel)]="newGame.location.city"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="state" class="form-label">State:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="state"
+        [(ngModel)]="newGame.location.state"
+      />
+    </div>
+    <!-- <div class="mb-3">
+      <label for="seasonYear" class="form-label">What Season Are You Adding This Game To:</label>
+      <input type="number" class="form-control" name="seasonYear" [(ngModel)]="newGame.season.year">
+    </div> -->
+    <div class="column small-12 large-2">
+      <label class="sbw_light">Season:</label><br />
+      <select [(ngModel)]="seasons">
+        <option value="seasons" [selected]="'year'">Year</option>
+        <option *ngFor="let season of seasons">{{ season.year }}</option>
+      </select>
+    </div>
+    <button
+      class="btn btn-dark"
+      (click)="addNewGame = !addNewGame; addGame(newGame.season.year, newGame)"
+    >
+      Add Game
+    </button>
+  </form>
+</div>
+
+<div *ngIf="selectedGame" class="container" id="updateAGameFormDiv">
+  <form id="updateAGameForm">
+    <div class="mb-3">
+      <label for="gameDate" class="form-label">Date:</label>
+      <input
+        type="date"
+        class="form-control"
+        name="gameDate"
+        [(ngModel)]="selectedGame.gameDate"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="day" class="form-label">Day of week:</label>
+      <input
+        type="text"
+        placeholder="Saturday"
+        class="form-control"
+        name="day"
+        [(ngModel)]="selectedGame.dayOfWeek"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="homeGame"
+        [(ngModel)]="selectedGame.homeGame"
+      />
+      <label class="form-check-label" for="homeGame"> Home Game </label>
+    </div>
+    <div class="mb-3">
+      <label for="opponent" class="form-label">Opponent:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="opponent"
+        [(ngModel)]="selectedGame.opponent"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="oppTeamName" class="form-label">Opponent Team Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="oppTeamName"
+        [(ngModel)]="selectedGame.oppTeamName"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="oppLogoUrl" class="form-label">Opponent Logo URL:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="oppLogoUrl"
+        [(ngModel)]="selectedGame.oppLogoUrl"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="conference" class="form-label">Opponent Conference:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="conference"
+        [(ngModel)]="selectedGame.conference"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="win"
+        [(ngModel)]="selectedGame.win"
+      />
+      <label class="form-check-label" for="win"> Nebraska Won </label>
+    </div>
+    <div class="mb-3">
+      <label for="points" class="form-label">Nebraska's Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        name="points"
+        [(ngModel)]="selectedGame.points"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="oppPoints" class="form-label">Opponent's Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        name="oppPoints"
+        [(ngModel)]="selectedGame.oppPoints"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="televised"
+        [(ngModel)]="selectedGame.televised"
+      />
+      <label class="form-check-label" for="televised"> Was on TV </label>
+    </div>
+    <div class="mb-3">
+      <label for="network" class="form-label">Network:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="network"
+        [(ngModel)]="selectedGame.network"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        name="bowlGame"
+        [(ngModel)]="selectedGame.bowlGame"
+      />
+      <label class="form-check-label" for="bowlGame"> Bowl Game </label>
+    </div>
+    <div class="mb-3">
+      <label for="stadium" class="form-label">Stadium:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="stadium"
+        [(ngModel)]="selectedGame.location.stadium"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="city" class="form-label">City:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="city"
+        [(ngModel)]="selectedGame.location.city"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="state" class="form-label">State:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="state"
+        [(ngModel)]="selectedGame.location.state"
+      />
+    </div>
+    <button
+      class="btn btn-dark"
+      (click)="
+        updateGame(selectedGame.season.year, selectedGame.id, selectedGame);
+        selectedGame = null
+      "
+    >
+      Save
+    </button>
+    <button class="btn btn-dark" (click)="selectedGame = null">Cancel</button>
+  </form>
+</div>
+
+<div class="table-responsive" id="gameDiv">
+  <div *ngIf="!addNewGame && !selectedGame" class="container" id="gameTableDiv">
+    <button class="btn btn-dark" (click)="addNewGame = !addNewGame">
+      Add Game
+    </button>
+    <table class="table" *ngIf="!addNewGame">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Day</th>
+          <th scope="col">Home/Away</th>
+          <th colspan="3" scope="col">Opponent</th>
+          <th scope="col">Opponent's Conference</th>
+          <th scope="col">Win/Loss</th>
+          <th scope="col">NU Points</th>
+          <th scope="col">Opp Points</th>
+          <th scope="col">On TV</th>
+          <th scope="col">Network</th>
+          <th scope="col">Bowl Game</th>
+          <th scope="col">Stadium</th>
+          <th scope="col">City</th>
+          <th scope="col">State</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let game of games">
+          <td>{{ game.gameDate }}</td>
+          <td>{{ game.dayOfWeek }}</td>
+          <td>{{ game.homeGame ? "HOME" : "AWAY" }}</td>
+          <td>{{ game.opponent }}</td>
+          <td>{{ game.oppTeamName }}</td>
+          <td><img src="{{ game.oppLogoUrl }}" /></td>
+          <td>{{ game.conference }}</td>
+          <td>{{ game.win ? "Win" : "Loss" }}</td>
+          <td>{{ game.points }}</td>
+          <td>{{ game.oppPoints }}</td>
+          <td>{{ game.televised }}</td>
+          <td>{{ game.network }}</td>
+          <td>{{ game.bowlGame ? "X" : "" }}</td>
+          <td>{{ game.location.stadium }}</td>
+          <td>{{ game.location.city }}</td>
+          <td>{{ game.location.state }}</td>
+          <td>
+            <button class="btn btn-dark" (click)="displayGame(game)">
+              Update
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-danger"
+              (click)="deleteGame(game.season.year, game.id)"
+            >
+              X
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

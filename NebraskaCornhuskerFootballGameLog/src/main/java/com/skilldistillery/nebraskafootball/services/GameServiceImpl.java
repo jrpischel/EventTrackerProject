@@ -50,6 +50,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public Game updateGame(int seasonYear, int gameId, Game game) {
 		Game dbGame = gameRepo.searchById(gameId);
+		System.out.println("***************" + dbGame);
 		if(dbGame != null) {
 			dbGame.setDayOfWeek(game.getDayOfWeek());
 			dbGame.setHomeGame(game.isHomeGame());

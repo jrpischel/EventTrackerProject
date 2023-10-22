@@ -1,0 +1,96 @@
+<div *ngIf="addNewSeason && !selectedSeason" class="container" id="addSeasonFormDiv">
+  <form id="addSeasonForm">
+    <div class="mb-3">
+      <label for="Year" class="form-label">Year:</label>
+      <input type="number" min="1901" placeholder="2023" class="form-control" name="Year" [(ngModel)]="newSeason.year">
+    </div>
+    <div class="mb-3">
+      <label for="Record" class="form-label">Record:</label>
+      <input type="text" placeholder="13-0" class="form-control" name="Record" [(ngModel)]="newSeason.record">
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" name="confChamp" [(ngModel)]="newSeason.confChamp">
+      <label class="form-check-label" for="confChamp">
+        Won Conference Championship This Season
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" name="natChampAp" [(ngModel)]="newSeason.natChampAp">
+      <label class="form-check-label" for="natChampAp">
+        Won National Championship AP Title This Season
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" name="natChampCoach" [(ngModel)]="newSeason.natChampCoach">
+      <label class="form-check-label" for="natChampCoach">
+        Won National Championship Coach's Title This Season
+      </label>
+      <button class="btn btn-dark" (click)="addNewSeason = !addNewSeason; addSeason(newSeason)">Add Season</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="selectedSeason" class="container" id="updateASeasonFormDiv">
+  <form id="updateASeasonForm">
+    <div class="mb-3">
+      <label for="Year" class="form-label">Year:</label>
+      <input type="number" min="1901" placeholder="2023" class="form-control" name="Year" [(ngModel)]="selectedSeason.year">
+    </div>
+    <div class="mb-3">
+      <label for="Record" class="form-label">Record:</label>
+      <input type="text" placeholder="13-0" class="form-control" name="Record" [(ngModel)]="selectedSeason.record">
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" name="confChamp" [(ngModel)]="selectedSeason.confChamp">
+      <label class="form-check-label" for="confChamp">
+        Won Conference Championship This Season
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" name="natChampAp" [(ngModel)]="selectedSeason.natChampAp">
+      <label class="form-check-label" for="natChampAp">
+        Won National Championship AP Title This Season
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" name="natChampCoach" [(ngModel)]="selectedSeason.natChampCoach">
+      <label class="form-check-label" for="natChampCoach">
+        Won National Championship Coach's Title This Season
+      </label>
+      <button class="btn btn-dark" (click)="updateSeason(selectedSeason.year, selectedSeason); selectedSeason = null">Save</button>
+      <button class="btn btn-dark" (click)="selectedSeason = null">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<div class="container" id="seasonDiv">
+<div *ngIf="!addNewSeason && !selectedSeason" class="container" id="seasonTableDiv">
+  <button class="btn btn-dark" (click)="addNewSeason = !addNewSeason">Add Season</button>
+  <table class="table" *ngIf="!addNewSeason">
+    <thead>
+      <tr>
+        <th scope="col">Season</th>
+        <th scope="col">Record</th>
+        <th scope="col">Conference Champ</th>
+        <th scope="col">National Champion - AP Poll</th>
+        <th scope="col">National Champion - Coach's Poll</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let season of seasons">
+        <td>{{season.year}}</td>
+        <td>{{season.record}}</td>
+        <td>{{season.confChamp ? 'X' : ''}}</td>
+        <td>{{season.natChampAp ? 'X' : ''}}</td>
+        <td>{{season.natChampCoach ? 'X' : ''}}</td>
+        <td><button class="btn btn-dark" (click)="goToGameTable(season.year)">See Season</button></td>
+        <td><button class="btn btn-dark" (click)="setEditSeason(season)">Update</button></td>
+        <td><button class="btn btn-danger" (click)="deleteSeason(season.year)">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

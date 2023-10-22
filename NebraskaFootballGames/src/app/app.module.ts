@@ -7,11 +7,21 @@ import { FormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SeasonComponent } from './components/season/season.component';
+import { GameComponent } from './components/game/game.component';
+import { LocaationComponent } from './components/locaation/locaation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NavigationComponent,
+    NotFoundComponent,
+    SeasonComponent,
+    GameComponent,
+    LocaationComponent
   ],
   imports: [
     BrowserModule,
