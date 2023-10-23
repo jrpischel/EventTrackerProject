@@ -72,7 +72,10 @@
 - Creation of wireframe models
 - Creation of canban boards
 - Use of Git Branching and Merging
-- Use of Components, Models, and Services in Angular
+- Creation and Use of Components, Models, and Services in Angular
+- Use of ngModel, ngFor, and ngIf
+- Use of click events (in JavaScript and Angular)
+- Use of Routing in Angular
 
 ### Endpoints
 
