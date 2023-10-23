@@ -2,168 +2,93 @@
   <form id="addGameForm">
     <div class="mb-3">
       <label for="gameDate" class="form-label">Date:</label>
-      <input
-        type="date"
-        class="form-control"
-        name="gameDate"
-        [(ngModel)]="newGame.gameDate"
-      />
+      <input type="date" class="form-control" name="gameDate" [(ngModel)]="newGame.gameDate" />
     </div>
     <div class="mb-3">
       <label for="day" class="form-label">Day of week:</label>
-      <input
-        type="text"
-        placeholder="Saturday"
-        class="form-control"
-        name="day"
-        [(ngModel)]="newGame.dayOfWeek"
-      />
+      <input type="text" placeholder="Saturday" class="form-control" name="day" [(ngModel)]="newGame.dayOfWeek" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="homeGame"
-        [(ngModel)]="newGame.homeGame"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="homeGame" [(ngModel)]="newGame.homeGame" />
       <label class="form-check-label" for="homeGame"> Home Game </label>
-    </div>
+    </div><br>
     <div class="mb-3">
       <label for="opponent" class="form-label">Opponent:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="opponent"
-        [(ngModel)]="newGame.opponent"
-      />
+      <input type="text" class="form-control" name="opponent" [(ngModel)]="newGame.opponent" />
     </div>
     <div class="mb-3">
       <label for="oppTeamName" class="form-label">Opponent Team Name:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="oppTeamName"
-        [(ngModel)]="newGame.oppTeamName"
-      />
+      <input type="text" class="form-control" name="oppTeamName" [(ngModel)]="newGame.oppTeamName" />
     </div>
     <div class="mb-3">
       <label for="oppLogoUrl" class="form-label">Opponent Logo URL:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="oppLogoUrl"
-        [(ngModel)]="newGame.oppLogoUrl"
-      />
+      <input type="text" class="form-control" name="oppLogoUrl" [(ngModel)]="newGame.oppLogoUrl" />
     </div>
     <div class="mb-3">
       <label for="conference" class="form-label">Opponent Conference:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="conference"
-        [(ngModel)]="newGame.conference"
-      />
+      <input type="text" class="form-control" name="conference" [(ngModel)]="newGame.conference" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="win"
-        [(ngModel)]="newGame.win"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="win" [(ngModel)]="newGame.win" />
       <label class="form-check-label" for="win"> Nebraska Won </label>
-    </div>
+    </div><br>
     <div class="mb-3">
       <label for="points" class="form-label">Nebraska's Score:</label>
-      <input
-        type="number"
-        class="form-control"
-        name="points"
-        [(ngModel)]="newGame.points"
-      />
+      <input type="number" class="form-control" name="points" [(ngModel)]="newGame.points" />
     </div>
     <div class="mb-3">
       <label for="oppPoints" class="form-label">Opponent's Score:</label>
-      <input
-        type="number"
-        class="form-control"
-        name="oppPoints"
-        [(ngModel)]="newGame.oppPoints"
-      />
+      <input type="number" class="form-control" name="oppPoints" [(ngModel)]="newGame.oppPoints" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="televised"
-        [(ngModel)]="newGame.televised"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="televised" [(ngModel)]="newGame.televised" />
       <label class="form-check-label" for="televised"> Was on TV </label>
-    </div>
+    </div><br>
     <div class="mb-3">
       <label for="network" class="form-label">Network:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="network"
-        [(ngModel)]="newGame.network"
-      />
+      <input type="text" class="form-control" name="network" [(ngModel)]="newGame.network" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="bowlGame"
-        [(ngModel)]="newGame.bowlGame"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="bowlGame" [(ngModel)]="newGame.bowlGame" />
       <label class="form-check-label" for="bowlGame"> Bowl Game </label>
+    </div><br>
+    <div class="mb-3">
+      <label for="location">Location:</label>
+      <select name="location" [(ngModel)]="newGame.location.id">
+        <option *ngFor="let loc of locations" value="{{loc.id}}">{{loc.stadium}} {{loc.city}}</option>
+      </select>
     </div>
+    <h3>Add New Location:</h3>
     <div class="mb-3">
       <label for="stadium" class="form-label">Stadium:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="stadium"
-        [(ngModel)]="newGame.location.stadium"
-      />
+      <input type="text" class="form-control" name="stadium" [(ngModel)]="newGame.location.stadium" />
     </div>
     <div class="mb-3">
       <label for="city" class="form-label">City:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="city"
-        [(ngModel)]="newGame.location.city"
-      />
+      <input type="text" class="form-control" name="city" [(ngModel)]="newGame.location.city" />
     </div>
     <div class="mb-3">
       <label for="state" class="form-label">State:</label>
+      <input type="text" class="form-control" name="state" [(ngModel)]="newGame.location.state" />
+    </div>
+    <!-- <div class="mb-3">
+      <label for="seasonYear" class="form-label"
+        >What Season Are You Adding This Game To:</label
+      >
       <input
-        type="text"
+        type="number"
         class="form-control"
-        name="state"
-        [(ngModel)]="newGame.location.state"
+        name="seasonYear"
+        [(ngModel)]="newGame.season.year"
       />
-    </div>
-    <div class="mb-3">
-      <label for="seasonYear" class="form-label">What Season Are You Adding This Game To:</label>
-      <input type="number" class="form-control" name="seasonYear" [(ngModel)]="newGame.season.year">
-    </div>
-    <!-- <div class="column small-12 large-2">
-      <label class="sbw_light">Season:</label><br />
-      <select [(ngModel)]="seasons">
-        <option value="seasons" [selected]="'year'">Year</option>
-        <option *ngFor="let season of seasons">{{season.year}}</option>
-      </select>
     </div> -->
-    <button
-      class="btn btn-dark"
-      (click)="addNewGame = !addNewGame; addGame(newGame.season.year, newGame)"
-    >
+    <div class="mb-3">
+      <label for="season">Add To Which Season:</label>
+      <select name="season" [(ngModel)]="newGame.season.year">
+        <option *ngFor="let season of seasons" value="{{season.year}}">{{season.year}}</option>
+      </select>
+    </div>
+    <button class="btn btn-dark" (click)="addNewGame = !addNewGame; addGame(newGame.season.year, newGame)">
       Add Game
     </button>
   </form>
@@ -173,160 +98,72 @@
   <form id="updateAGameForm">
     <div class="mb-3">
       <label for="gameDate" class="form-label">Date:</label>
-      <input
-        type="date"
-        class="form-control"
-        name="gameDate"
-        [(ngModel)]="selectedGame.gameDate"
-      />
+      <input type="date" class="form-control" name="gameDate" [(ngModel)]="selectedGame.gameDate" />
     </div>
     <div class="mb-3">
       <label for="day" class="form-label">Day of week:</label>
-      <input
-        type="text"
-        placeholder="Saturday"
-        class="form-control"
-        name="day"
-        [(ngModel)]="selectedGame.dayOfWeek"
-      />
+      <input type="text" placeholder="Saturday" class="form-control" name="day" [(ngModel)]="selectedGame.dayOfWeek" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="homeGame"
-        [(ngModel)]="selectedGame.homeGame"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="homeGame" [(ngModel)]="selectedGame.homeGame" />
       <label class="form-check-label" for="homeGame"> Home Game </label>
     </div>
     <div class="mb-3">
       <label for="opponent" class="form-label">Opponent:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="opponent"
-        [(ngModel)]="selectedGame.opponent"
-      />
+      <input type="text" class="form-control" name="opponent" [(ngModel)]="selectedGame.opponent" />
     </div>
     <div class="mb-3">
       <label for="oppTeamName" class="form-label">Opponent Team Name:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="oppTeamName"
-        [(ngModel)]="selectedGame.oppTeamName"
-      />
+      <input type="text" class="form-control" name="oppTeamName" [(ngModel)]="selectedGame.oppTeamName" />
     </div>
     <div class="mb-3">
       <label for="oppLogoUrl" class="form-label">Opponent Logo URL:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="oppLogoUrl"
-        [(ngModel)]="selectedGame.oppLogoUrl"
-      />
+      <input type="text" class="form-control" name="oppLogoUrl" [(ngModel)]="selectedGame.oppLogoUrl" />
     </div>
     <div class="mb-3">
       <label for="conference" class="form-label">Opponent Conference:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="conference"
-        [(ngModel)]="selectedGame.conference"
-      />
+      <input type="text" class="form-control" name="conference" [(ngModel)]="selectedGame.conference" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="win"
-        [(ngModel)]="selectedGame.win"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="win" [(ngModel)]="selectedGame.win" />
       <label class="form-check-label" for="win"> Nebraska Won </label>
     </div>
     <div class="mb-3">
       <label for="points" class="form-label">Nebraska's Score:</label>
-      <input
-        type="number"
-        class="form-control"
-        name="points"
-        [(ngModel)]="selectedGame.points"
-      />
+      <input type="number" class="form-control" name="points" [(ngModel)]="selectedGame.points" />
     </div>
     <div class="mb-3">
       <label for="oppPoints" class="form-label">Opponent's Score:</label>
-      <input
-        type="number"
-        class="form-control"
-        name="oppPoints"
-        [(ngModel)]="selectedGame.oppPoints"
-      />
+      <input type="number" class="form-control" name="oppPoints" [(ngModel)]="selectedGame.oppPoints" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="televised"
-        [(ngModel)]="selectedGame.televised"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="televised" [(ngModel)]="selectedGame.televised" />
       <label class="form-check-label" for="televised"> Was on TV </label>
     </div>
     <div class="mb-3">
       <label for="network" class="form-label">Network:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="network"
-        [(ngModel)]="selectedGame.network"
-      />
+      <input type="text" class="form-control" name="network" [(ngModel)]="selectedGame.network" />
     </div>
     <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        name="bowlGame"
-        [(ngModel)]="selectedGame.bowlGame"
-      />
+      <input class="form-check-input" type="checkbox" value="" name="bowlGame" [(ngModel)]="selectedGame.bowlGame" />
       <label class="form-check-label" for="bowlGame"> Bowl Game </label>
     </div>
     <div class="mb-3">
       <label for="stadium" class="form-label">Stadium:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="stadium"
-        [(ngModel)]="selectedGame.location.stadium"
-      />
+      <input type="text" class="form-control" name="stadium" [(ngModel)]="selectedGame.location.stadium" />
     </div>
     <div class="mb-3">
       <label for="city" class="form-label">City:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="city"
-        [(ngModel)]="selectedGame.location.city"
-      />
+      <input type="text" class="form-control" name="city" [(ngModel)]="selectedGame.location.city" />
     </div>
     <div class="mb-3">
       <label for="state" class="form-label">State:</label>
-      <input
-        type="text"
-        class="form-control"
-        name="state"
-        [(ngModel)]="selectedGame.location.state"
-      />
+      <input type="text" class="form-control" name="state" [(ngModel)]="selectedGame.location.state" />
     </div>
-    <button
-      class="btn btn-dark"
-      (click)="
+    <button class="btn btn-dark" (click)="
         updateGame(selectedGame.season.year, selectedGame.id, selectedGame);
         selectedGame = null
-      "
-    >
+      ">
       Save
     </button>
     <button class="btn btn-dark" (click)="selectedGame = null">Cancel</button>
@@ -383,10 +220,7 @@
             </button>
           </td>
           <td>
-            <button
-              class="btn btn-danger"
-              (click)="deleteGame(game.season.year, game.id)"
-            >
+            <button class="btn btn-danger" (click)="deleteGame(game.season.year, game.id)">
               X
             </button>
           </td>
