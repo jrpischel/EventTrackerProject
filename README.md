@@ -28,6 +28,8 @@
 - EC2
 - Trello
 - Google Slides
+- JavaScript
+- Angular
 
 # Lessons Learned
 
@@ -70,6 +72,7 @@
 - Creation of wireframe models
 - Creation of canban boards
 - Use of Git Branching and Merging
+- Use of Components, Models, and Services in Angular
 
 ### Endpoints
 
@@ -94,7 +97,53 @@
 
 #### JSON
 
-* TODO
+Season: 
+	{
+   	"year": 1994,
+    "record": "13-0",
+    "confChamp": true,
+    "natChampAp": true,
+    "natChampCoach": true
+}
+
+Game:
+	{
+    "id": 1,
+    "gameDate": "1994-08-28",
+    "dayOfWeek": "Sunday",
+    "homeGame": false,
+    "opponent": "(24) West Virginia",
+    "oppTeamName": "Mountaineers",
+    "oppLogoUrl": "https://cdn.ssref.net/req/202310031/tlogo/ncaa/west-virginia.png",
+    "conference": "Big East",
+    "win": true,
+    "points": 31,
+    "oppPoints": 0,
+    "televised": true,
+    "network": "NBC",
+    "bowlGame": false,
+    "location": {
+        "id": 2,
+        "stadium": "Giants Stadium",
+        "city": "East Rutherford",
+        "state": "New Jersery"
+    },
+    "season": {
+        "year": 1994,
+        "record": "13-0",
+        "confChamp": true,
+        "natChampAp": true,
+        "natChampCoach": true
+    }
+}
+
+Location:
+	{
+    "id": 1,
+    "stadium": "Memorial Stadium",
+    "city": "Lincoln",
+    "state": "Nebraska"
+}
 
 ### HTML and JavaScript Front End
 
