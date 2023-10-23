@@ -43,7 +43,7 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public Game createGame(Game game) {
-		locationRepo.saveAndFlush(game.getLocation());
+//		locationRepo.saveAndFlush(game.getLocation());
 		return gameRepo.saveAndFlush(game);
 	}
 

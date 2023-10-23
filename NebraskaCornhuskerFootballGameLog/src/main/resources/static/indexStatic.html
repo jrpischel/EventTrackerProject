@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="css/main.css">
+<script src="js/script.js"></script>
+<title>Go Big Red</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Nebraska Cornhuskers Football Game Log</h1><button type="button" class="btn btn-dark" id="season-toggle">Seasons</button>
+		<div id="welcomeDiv">
+			<br><br>
+			<hr>
+			<a href="index.html">Go To Angular Front End</a>
+			<hr>
+			<blockquote id="welcomeQuote"><h4>Welcome to the Nebraska CornHuskers Game Tracker, This site is a passion project started as a class assignment and  has grown in to a vast Data Base of game information.
+			To get started click on the Seasons button. Thank you for visiting!</h4></blockquote>
+		</div>
+		<div id="dataDiv"></div><br><br>
+		<br>
+		<div id="seasonTableDiv"></div><br><br>
+		<br>
+		<div id="gameTableDiv"></div><br><br>
+		<br>
+		<div id="locationDiv"></div><br><br>
+		<br>
+		<div id="updateSeasonDiv" style="display: none;">
+			<p id="updateSeasonHeader"><h4>Update Season</h4></p>
+			<form id="updateSeasonForm" name="updateSeasonForm">
+				<label for="year">Year</label>
+				<input type="number" id="year" name="year"/><br>
+				<label for="record">Record</label>
+				<input type="text" id="record" name="record" /><br>
+				<label for="confChamp">Conference Champion?</label>
+				<label for="confChampY">Yes</label>
+				<input type="radio" id="confChampY" name="confChamp" value=true />
+				<label for="confChampN">No</label>
+				<input type="radio" id="confChampN" name="confChamp" value=false /><br>
+				<label for="natChampAp">AP Poll Champion?</label>
+				<label for="confChampY">Yes</label>
+				<input type="radio" id="natChampApY" name="natChampAp" value=true />
+				<label for="natChampApN">No</label>
+				<input type="radio" id="natChampApN" name="natChampAp" value=false /><br>
+				<label for="natChampCoach">Coach's Poll Champion?</label>
+				<label for="natChampCoachY">Yes</label>
+				<input type="radio" id="natChampCoachY" name="natChampCoach" value=true />
+				<label for="natChampCoachN">No</label>
+				<input type="radio" id="natChampCoachN" name="natChampCoach" value=false /><br>
+				<input type="submit" id="seasonUpdateSubmit" name="seasonUpdateSubmit" value="Update"/>
+			</form>
+			
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+<!--let natChampApYes = document.createElement('input');
+	natChampApYes.name = 'natChampAp';
+	natChampApYes.type = 'radio';
+	natChampApYes.label = 'Won AP Poll?';
+	natChampApYes.value = 'true';
+	natChampApYes.checked = false;-->
